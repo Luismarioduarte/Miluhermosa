@@ -1,490 +1,503 @@
-<!DOCTYPE html>
+Para que el contenido de la invitación se mantenga oculto y **se revele automáticamente el 30 de junio a las 9:00 AM**, necesitamos hacer una pequeña modificación en la lógica del código.
 
+Con los cambios que te preparé a continuación, ocurrirá lo siguiente:
+
+* **Antes de la fecha:** Milu verá únicamente la tarjeta superior, los corazones flotantes de fondo y la **cuenta regresiva corriendo hacia el 30 de junio a las 9:00 AM**.
+* **Al llegar el momento:** La cuenta regresiva desaparecerá mágicamente, se activará la lluvia de fuegos artificiales y corazones, y **aparecerá por fin toda tu invitación** junto con el botón de confirmación de WhatsApp.
+
+Aquí tienes tu código optimizado, "bien bonito" y con la revelación programada exacta:
+
+```html
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Para Mi Milu 💜 · Sorpresa Especial</title>
+    
+    <meta property="og:title" content="Para Mi Milu 💜 Una aventura te espera">
+    <meta property="og:description" content="Preparé algo mágico solo para ti. Confirma tu aventura.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#c77dff">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<title>Para Mi Hermosa Milu 💜</title>
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f8d9ff 0%, #ffd6ea 50%, #d7b3ff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
 
-<meta property="og:title" content="Para Mi Hermosa Milu 💜">
-<meta property="og:description" content="Una sorpresa especial preparada con mucho amor.">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#c77dff">
+        /* Elementos flotantes (flores y corazones) */
+        .floating {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp linear infinite;
+            filter: drop-shadow(0 0 4px rgba(255,215,245,0.6));
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        @keyframes floatUp {
+            from {
+                transform: translateY(110vh) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120px) rotate(360deg);
+                opacity: 0;
+            }
+        }
 
-<style>
+        /* Tarjeta principal */
+        .card {
+            width: 100%;
+            max-width: 950px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-radius: 45px;
+            padding: 40px 35px;
+            text-align: center;
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255,255,240,0.3);
+            position: relative;
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        .main-heart {
+            font-size: 58px;
+            animation: pulse 1.7s infinite;
+            display: inline-block;
+            filter: drop-shadow(0 4px 8px rgba(156,39,176,0.3));
+        }
 
-body{
-    font-family:'Poppins',sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
-    background:linear-gradient(
-        135deg,
-        #f8d9ff 0%,
-        #ffd6ea 50%,
-        #d7b3ff 100%
-    );
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    position:relative;
-}
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.12); text-shadow: 0 0 8px #ffb7f0; }
+            100% { transform: scale(1); }
+        }
 
-/* FLORES Y CORAZONES */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: #9c27b0;
+            font-size: 5rem;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 12px rgba(199,125,255,0.3);
+        }
 
-.floating{
-    position:fixed;
-    pointer-events:none;
-    z-index:1;
-    animation:floatUp linear infinite;
-}
+        .subtitle {
+            color: #c2185b;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+            background: rgba(255,235,250,0.7);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+        }
 
-@keyframes floatUp{
-    from{
-        transform:translateY(110vh) rotate(0deg);
-        opacity:0;
-    }
-    20%{
-        opacity:1;
-    }
-    100%{
-        transform:translateY(-120px) rotate(360deg);
-        opacity:0;
-    }
-}
+        /* --- Estilos de la Cuenta Regresiva --- */
+        .countdown-wrapper {
+            margin: 25px auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
 
-/* TARJETA */
+        .time-box {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(224, 156, 237, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 15px 20px;
+            min-width: 90px;
+            box-shadow: 0 10px 20px rgba(156, 39, 176, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-.card{
-    width:100%;
-    max-width:950px;
-    background:rgba(255,255,255,0.88);
-    backdrop-filter:blur(12px);
-    border-radius:35px;
-    padding:40px;
-    text-align:center;
-    box-shadow:0 20px 50px rgba(0,0,0,.15);
-    position:relative;
-    z-index:10;
-}
+        .time-box span {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #b12e7a;
+            background: linear-gradient(135deg, #b5179e, #f06292);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
 
-.main-heart{
-    font-size:50px;
-    animation:pulse 2s infinite;
-}
+        .time-box p {
+            font-size: 0.85rem;
+            color: #8e24aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin: 0;
+        }
 
-@keyframes pulse{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.15);}
-    100%{transform:scale(1);}
-}
+        .countdown-title {
+            color: #8e24aa;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            animation: fadeInUp 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
 
-h1{
-    font-family:'Great Vibes',cursive;
-    color:#9c27b0;
-    font-size:5rem;
-    margin-bottom:10px;
-}
+        /* Estilos del contenido revelado (gift) */
+        .gift {
+            animation: fadeInUp 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            margin-top: 15px;
+            border-top: 2px dashed rgba(224, 156, 237, 0.4);
+            padding-top: 30px;
+        }
 
-.subtitle{
-    color:#c2185b;
-    font-size:1.2rem;
-    margin-bottom:25px;
-}
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.message{
-    color:#5f3c6f;
-    line-height:1.9;
-    font-size:1.15rem;
-    margin-bottom:35px;
-}
+        .gift h2 {
+            color: #b12e7a;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #b5179e, #f06292);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
 
-.countdown{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    margin-top:20px;
-}
+        .gift p {
+            margin: 18px 0;
+            color: #4a2b5e;
+            line-height: 1.8;
+            font-size: 1.08rem;
+            font-weight: 500;
+        }
 
-.time-box{
-    background:linear-gradient(
-        135deg,
-        #d38cff,
-        #ff9fcf
-    );
-    color:white;
-    padding:20px;
-    border-radius:20px;
-    box-shadow:0 8px 20px rgba(0,0,0,.1);
-}
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #c2185b;
+            white-space: nowrap;
+            margin: 0 auto 15px auto;
+            width: fit-content;
+            max-width: 100%;
+            font-size: 1.6rem;
+            font-family: 'Great Vibes', cursive;
+            color: #aa2e6e;
+            font-weight: bold;
+            animation: typing 3.5s steps(30, end), blink 0.8s step-end infinite;
+        }
 
-.time-box span{
-    display:block;
-    font-size:2.2rem;
-    font-weight:bold;
-}
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
 
-.time-box small{
-    font-size:.95rem;
-}
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
 
-.footer{
-    margin-top:30px;
-    color:#8e24aa;
-    font-style:italic;
-}
+        .gift-love {
+            margin-top: 35px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #c2185b;
+            background: linear-gradient(120deg, #b83b8e, #e86d9f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: bold;
+        }
 
-/* REVELACIÓN */
+        .signature {
+            margin-top: 18px;
+            color: #8e24aa;
+            font-style: italic;
+            font-size: 1rem;
+            font-weight: 500;
+        }
 
-.gift{
-    animation:fadeIn 2s;
-}
+        .confirm-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+            padding: 14px 32px;
+            border-radius: 60px;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #b5179e, #7209b7);
+            box-shadow: 0 12px 20px -8px rgba(114, 9, 183, 0.4);
+            transition: all 0.25s ease;
+            border: none;
+            cursor: pointer;
+        }
 
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(30px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
+        .confirm-btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #c221a8, #8a21c9);
+            box-shadow: 0 18px 28px -8px rgba(156, 39, 176, 0.5);
+        }
 
-.gift h2{
-    color:#8e24aa;
-    margin-bottom:20px;
-    font-size:2.3rem;
-}
+        .fireworks {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
 
-.gift p{
-    margin:14px 0;
-    color:#5f3c6f;
-    line-height:1.9;
-    font-size:1.1rem;
-}
-
-.gift-love{
-    margin-top:30px;
-    font-family:'Great Vibes',cursive;
-    font-size:3.4rem;
-    color:#c2185b;
-}
-
-.signature{
-    margin-top:20px;
-    color:#8e24aa;
-    font-style:italic;
-}
-
-.confirm-btn{
-    display:inline-block;
-    margin-top:25px;
-    padding:16px 32px;
-    border-radius:50px;
-    text-decoration:none;
-    color:white;
-    font-weight:600;
-    background:linear-gradient(135deg,#b5179e,#7209b7);
-    transition:.3s;
-}
-
-.confirm-btn:hover{
-    transform:scale(1.07);
-}
-
-.typewriter{
-    overflow:hidden;
-    border-right:3px solid #c2185b;
-    white-space:nowrap;
-    margin:0 auto;
-    animation:
-        typing 5s steps(40,end),
-        blink .8s infinite;
-}
-
-@keyframes typing{
-    from{width:0}
-    to{width:100%}
-}
-
-@keyframes blink{
-    50%{
-        border-color:transparent;
-    }
-}
-
-.fireworks{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:999;
-}
-
-@media(max-width:768px){
-
-    h1{
-        font-size:3.5rem;
-    }
-
-    .countdown{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .card{
-        padding:25px;
-    }
-
-    .typewriter{
-        white-space:normal;
-        border-right:none;
-        animation:none;
-    }
-}
-
-</style>
-
+        /* Ajustes móviles */
+        @media (max-width: 768px) {
+            .card {
+                padding: 28px 20px;
+            }
+            h1 {
+                font-size: 3.6rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .time-box {
+                min-width: 70px;
+                padding: 10px 12px;
+            }
+            .time-box span {
+                font-size: 1.6rem;
+            }
+            .time-box p {
+                font-size: 0.7rem;
+            }
+            .gift p {
+                font-size: 0.98rem;
+            }
+            .typewriter {
+                white-space: normal;
+                border-right: none;
+                animation: none;
+                font-size: 1.4rem;
+                width: auto;
+                display: block;
+            }
+            .gift-love {
+                font-size: 2.4rem;
+            }
+            .confirm-btn {
+                padding: 12px 22px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="fireworks" id="fireworks"></div>
+    <div class="fireworks" id="fireworksContainer"></div>
 
-<div class="card">
+    <div class="card">
+        <div class="main-heart">💜✨</div>
+        <h1>Milu</h1>
+        <p class="subtitle">✨ Feliz cumpleaños adelantado, preciosa 🌷 ✨</p>
+        
+        <p class="countdown-title" id="texto-cuenta">Descubriendo tu sorpresa en...</p>
+        <div class="countdown-wrapper" id="countdown">
+            <div class="time-box"><span id="days">00</span><p>Días</p></div>
+            <div class="time-box"><span id="hours">00</span><p>Horas</p></div>
+            <div class="time-box"><span id="minutes">00</span><p>Min</p></div>
+            <div class="time-box"><span id="seconds">00</span><p>Seg</p></div>
+        </div>
 
-```
-<div class="main-heart">💜</div>
-
-<h1>Milu</h1>
-
-<p class="subtitle">
-    Feliz cumpleaños adelantado, preciosa 🌷
-</p>
-
-<div id="content">
-
-    <div class="message">
-
-        Este es solo el comienzo de una pequeña sorpresa
-        preparada con mucho cariño para ti.
-
-        <br><br>
-
-        Quiero que disfrutes cada segundo de esta cuenta regresiva,
-        porque detrás de ella se encuentra algo muy especial y divertido
-        que he estado preparando para ti.
-
-        <br><br>
-
-        <strong>
-        Mereces todo lo bonito de este mundo,
-        porque tu sonrisa ilumina mis días
-        y tu presencia hace que todo sea mejor.
-        </strong>
-
+        <div id="sorpresaContainer"></div>
     </div>
 
-    <div class="countdown">
+    <script>
+        // --- CONFIGURACIÓN DE LA FECHA DE REVELACIÓN (30 de Junio a las 9:00 AM) ---
+        const countDownDate = new Date("June 30, 2026 09:00:00").getTime();
+        let sorpresaRevelada = false;
 
-        <div class="time-box">
-            <span id="days">0</span>
-            <small>Días</small>
-        </div>
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
 
-        <div class="time-box">
-            <span id="hours">0</span>
-            <small>Horas</small>
-        </div>
+            // Cálculos de tiempo
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        <div class="time-box">
-            <span id="minutes">0</span>
-            <small>Minutos</small>
-        </div>
+            // Si aún no ha llegado el momento, actualiza los números
+            if (distance > 0) {
+                document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+                document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+                document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+            } else {
+                // ¡LLEGÓ EL MOMENTO! Revelar sorpresa de inmediato
+                clearInterval(x);
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("texto-cuenta").style.display = "none";
+                
+                if (!sorpresaRevelada) {
+                    mostrarSorpresa();
+                    lanzarFuegosArtificiales();
+                    sorpresaRevelada = true;
+                }
+            }
+        }, 1000);
 
-        <div class="time-box">
-            <span id="seconds">0</span>
-            <small>Segundos</small>
-        </div>
 
-    </div>
+        // --- FUNCIÓN PARA REVELAR LA INVITACIÓN ---
+        function mostrarSorpresa() {
+            const contenedor = document.getElementById("sorpresaContainer");
+            if (!contenedor) return;
 
-    <div class="footer">
-        Con amor, Luis 💜
-    </div>
+            contenedor.innerHTML = `
+                <div class="gift">
+                    <h2>🎁 ¡Una experiencia mágica para ti! 🎁</h2>
+                    
+                    <div class="typewriter">
+                        💜 Mi hermosa Milu... 💜
+                    </div>
+                    
+                    <p>Quiero invitarte a vivir una aventura muy especial<br>el próximo <strong>2 de julio</strong>.</p>
+                    <p>✨ Ese día emprenderemos una travesía que durará todo el día,<br>llena de momentos, risas, sorpresas y recuerdos que espero<br>que atesores tanto como yo.</p>
+                    <p>🌟 Será un día dedicado especialmente para ti, para compartir,<br>disfrutar, descubrir nuevos lugares y crear juntos<br>recuerdos inolvidables.</p>
+                    <p>🌷 Mereces vivir momentos tan especiales como tú.<br>Toda mi atención será para ti durante esa jornada,<br>porque deseo que te sientas querida, valorada<br>y profundamente feliz.</p>
+                    <p>💫 Espero tu confirmación para compartir esta hermosa aventura.<br>¡Será inolvidable a tu lado!</p>
+                    
+                    <a class="confirm-btn" target="_blank" href="https://wa.me/573215669926?text=Hola%20Luis%20💜%20Confirmo%20mi%20aventura%20contigo%20el%202%20de%20julio.%20🌷">
+                        💜 Confirmo mi aventura contigo 💜
+                    </a>
+                    
+                    <div class="gift-love">💜 Te amo, Milu 💜</div>
+                    <div class="signature">Con todo el amor del mundo, Luis 💜</div>
+                </div>
+            `;
+            
+            const corazonMain = document.querySelector('.main-heart');
+            if(corazonMain) corazonMain.style.animation = 'pulse 1.2s infinite';
+        }
 
-</div>
-```
+        // --- EFECTOS VISUALES (Fuegos artificiales y elementos flotantes) ---
+        function lanzarFuegosArtificiales() {
+            const totalElementos = 140;
+            const emojisCelebracion = ["💜", "💕", "🌷", "✨", "🌸", "⭐", "💖", "🌺", "🎀"];
+            
+            for (let i = 0; i < totalElementos; i++) {
+                setTimeout(() => {
+                    const elemento = document.createElement("div");
+                    const randomEmoji = emojisCelebracion[Math.floor(Math.random() * emojisCelebracion.length)];
+                    
+                    elemento.innerHTML = randomEmoji;
+                    elemento.style.position = "fixed";
+                    elemento.style.left = Math.random() * 100 + "vw";
+                    elemento.style.top = Math.random() * 100 + "vh";
+                    elemento.style.fontSize = (18 + Math.random() * 42) + "px";
+                    elemento.style.pointerEvents = "none";
+                    elemento.style.zIndex = "9999";
+                    elemento.style.opacity = "0.95";
+                    elemento.style.filter = "drop-shadow(0 0 4px magenta)";
+                    
+                    document.body.appendChild(elemento);
+                    
+                    elemento.animate([
+                        { transform: 'scale(0.2)', opacity: 1, offset: 0 },
+                        { transform: 'scale(1.2)', opacity: 1, offset: 0.4 },
+                        { transform: 'scale(0.8)', opacity: 0.8, offset: 0.7 },
+                        { transform: 'scale(0)', opacity: 0, offset: 1 }
+                    ], {
+                        duration: 2800,
+                        easing: 'ease-out'
+                    });
+                    
+                    setTimeout(() => elemento.remove(), 2800);
+                }, i * 35);
+            }
+        }
 
-</div>
+        const emojisFlotantes = ["🌷", "🌸", "💜", "💕", "🌺", "✨", "🦋", "⭐", "🌼"];
+        function crearElementoFlotante() {
+            const divFlotante = document.createElement("div");
+            divFlotante.className = "floating";
+            const emojiRand = emojisFlotantes[Math.floor(Math.random() * emojisFlotantes.length)];
+            
+            divFlotante.innerHTML = emojiRand;
+            divFlotante.style.left = Math.random() * 100 + "vw";
+            divFlotante.style.fontSize = (18 + Math.random() * 30) + "px";
+            divFlotante.style.animationDuration = (7 + Math.random() * 9) + "s";
+            divFlotante.style.opacity = "0.85";
+            
+            document.body.appendChild(divFlotante);
+            setTimeout(() => { if (divFlotante) divFlotante.remove(); }, 15000);
+        }
+        setInterval(crearElementoFlotante, 680);
 
-<script>
+        // Verificación inicial por si abren la página después de la fecha establecida
+        document.addEventListener("DOMContentLoaded", () => {
+            const now = new Date().getTime();
+            if (countDownDate - now <= 0) {
+                clearInterval(x);
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("texto-cuenta").style.display = "none";
+                mostrarSorpresa();
+            }
+        });
 
-/* FECHA DE REVELACIÓN */
-const targetDate = new Date("2026-06-30T09:00:00-05:00").getTime();
-
-/* FLORES Y CORAZONES */
-
-const emojis = ["🌷","🌸","💜","💕","🌺"];
-
-function createFloating(){
-    const item = document.createElement("div");
-    item.className = "floating";
-    item.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
-
-    item.style.left = Math.random()*100 + "vw";
-    item.style.fontSize = (20 + Math.random()*25) + "px";
-    item.style.animationDuration = (8 + Math.random()*8) + "s";
-
-    document.body.appendChild(item);
-
-    setTimeout(()=>{
-        item.remove();
-    },16000);
-}
-
-setInterval(createFloating,700);
-
-/* CONTADOR */
-
-const countdown = setInterval(()=>{
-
-    const now = new Date().getTime();
-
-    const distance = targetDate - now;
-
-    if(distance <= 0){
-
-        clearInterval(countdown);
-
-        revealGift();
-
-        return;
-    }
-
-    document.getElementById("days").innerText =
-        Math.floor(distance/(1000*60*60*24));
-
-    document.getElementById("hours").innerText =
-        Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-
-    document.getElementById("minutes").innerText =
-        Math.floor((distance%(1000*60*60))/(1000*60));
-
-    document.getElementById("seconds").innerText =
-        Math.floor((distance%(1000*60))/1000);
-
-},1000);
-
-function revealGift(){
-
-document.getElementById("content").innerHTML = `
-
-<div class="gift">
-
-<h2>🎁 ¡La sorpresa ha sido revelada! 🎁</h2>
-
-<p class="typewriter">
-Mi hermosa Milu...
-</p>
-
-<p>
-Quiero invitarte a vivir una aventura muy especial
-el próximo <strong>2 de julio</strong>.
-</p>
-
-<p>
-Ese día emprenderemos una travesía que durará todo el día,
-llena de momentos, risas, sorpresas y recuerdos que espero
-que atesores tanto como yo.
-</p>
-
-<p>
-Será un día dedicado para ti, para compartir,
-disfrutar, descubrir nuevos lugares y crear
-recuerdos inolvidables juntos.
-</p>
-
-<p>
-Mereces vivir momentos tan especiales como tú.
-</p>
-
-<p>
-Toda mi atención será para ti durante ese día,
-porque deseo que te sientas querida, valorada
-y profundamente feliz.
-</p>
-
-<p>
-Espero tu confirmación para compartir esta hermosa aventura.
-</p>
-
-<a
-class="confirm-btn"
-target="_blank"
-href="https://wa.me/573215669926?text=Hola%20Luis%20💜%20Confirmo%20mi%20aventura%20contigo%20el%202%20de%20julio.%20🌷">
-💜 Confirmo mi aventura contigo 💜
-</a>
-
-<div class="gift-love">
-💜 Te amo, Milu 💜
-</div>
-
-<div class="signature">
-Con amor, Luis 💜
-</div>
-
-</div>
-
-`;
-
-fireworks();
-}
-
-/* CORAZONES DE CELEBRACIÓN */
-
-function fireworks(){
-
-    for(let i=0;i<120;i++){
-
-        setTimeout(()=>{
-
-            const heart = document.createElement("div");
-
-            heart.innerHTML = ["💜","💕","🌷","✨"][Math.floor(Math.random()*4)];
-
-            heart.style.position="fixed";
-            heart.style.left=Math.random()*100+"vw";
-            heart.style.top=Math.random()*100+"vh";
-            heart.style.fontSize=(15+Math.random()*40)+"px";
-            heart.style.pointerEvents="none";
-            heart.style.zIndex="999";
-
-            document.body.appendChild(heart);
-
-            heart.animate([
-                {transform:'scale(0)',opacity:1},
-                {transform:'scale(1.8)',opacity:1},
-                {transform:'scale(0)',opacity:0}
-            ],{
-                duration:3000
-            });
-
-            setTimeout(()=>heart.remove(),3000);
-
-        },i*50);
-    }
-}
-
-</script>
-
+        // Efecto al hacer clic en el botón (cuando ya esté visible)
+        document.body.addEventListener('click', (e) => {
+            if (e.target.classList && e.target.classList.contains('confirm-btn')) {
+                for(let i = 0; i < 35; i++) {
+                    setTimeout(() => {
+                        const tinyHeart = document.createElement("div");
+                        tinyHeart.innerHTML = "💜";
+                        tinyHeart.style.position = "fixed";
+                        tinyHeart.style.left = (e.clientX + (Math.random() - 0.5) * 80) + "px";
+                        tinyHeart.style.top = (e.clientY + (Math.random() - 0.5) * 60) + "px";
+                        tinyHeart.style.fontSize = (16 + Math.random() * 24) + "px";
+                        tinyHeart.style.pointerEvents = "none";
+                        tinyHeart.style.zIndex = "10000";
+                        tinyHeart.style.opacity = "0.9";
+                        tinyHeart.style.transition = "transform 1s ease, opacity 1s";
+                        
+                        document.body.appendChild(tinyHeart);
+                        setTimeout(() => tinyHeart.remove(), 1100);
+                    }, i * 20);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
+
+```
